@@ -1,5 +1,8 @@
-from fastapi import APIRouter
+from fastapi import APIRouter , Depends 
+from sqlalchemy.orm import Session
 from app.schemas.user_schema import UserRegister
+from app.services.auth_service import register_user
+from app.database.connection import get_db
 
 router = APIRouter()
 
@@ -8,13 +11,5 @@ def test():
     return {"status": "Auth API is working"}
 
 @router.post("/register")
-def register(user : UserRegister):
-    
-    if user.password != user.confirm_password:
-        return {"error":"Passwords does not match"}
-
-    return {        
-        "username": user.username,
-        "email": user.email,
-        "message": "User data received"
-    }
+def register(user : UserRegister , db:Session = Depends(get_db)):
+    return register_user(user , db)

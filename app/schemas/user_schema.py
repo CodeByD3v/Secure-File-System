@@ -5,4 +5,3 @@ class UserRegister(BaseModel):
     email: EmailStr
     password: str
     confirm_password: str
-    
