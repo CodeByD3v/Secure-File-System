@@ -9,7 +9,3 @@ app.include_router(auth_routes.router, prefix="/auth")
 def read_root():
     return {"message": "Welcome to the Secure File System API"}
 
-@app.get("/message")
-def get_message():
-    return {"message": "Welcome to the Secure File System API"}
-
